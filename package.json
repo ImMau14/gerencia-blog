@@ -9,9 +9,28 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "lint": "oxlint .",
+    "format": "prettier --check .",
+    "fix": "oxlint . --fix && prettier --write \"**/*.{astro,js,ts,md,json,css,mjs}\" --ignore-unknown"
   },
   "dependencies": {
-    "astro": "^6.1.9"
+    "@astrojs/check": "^0.9.8",
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^6.1.9",
+    "tailwindcss": "^4.2.4",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@astrojs/language-server": "^2.16.6",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/node": "^25.6.0",
+    "oxlint": "^1.62.0",
+    "prettier": "^3.8.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "tailwind-animations": "^1.0.1",
+    "typescript-language-server": "^5.1.3"
   }
 }
