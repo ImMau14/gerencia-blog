@@ -101,7 +101,7 @@
 :root {
   scrollbar-gutter: stable;
   scrollbar-width: thin;
-  scrollbar-color: #4d710f #0f1114;
+  scrollbar-color: #595f4f #0d0f11;
 }
 
 ::-webkit-scrollbar {
@@ -110,15 +110,15 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f1114;
+  background: #0d0f11;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4d710f;
+  background: #595f4f;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #96d62e;
+  background: #5f6653;
 }
 
 ::-webkit-scrollbar-track,
