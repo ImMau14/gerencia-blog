@@ -101,7 +101,7 @@
 :root {
   scrollbar-gutter: stable;
   scrollbar-width: thin;
-  scrollbar-color: #595f4f #0d0f11;
+  scrollbar-color: #575757 #0d0f11;
 }
 
 ::-webkit-scrollbar {
@@ -114,7 +114,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #595f4f;
+  background: #575757;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -139,4 +139,19 @@
     0 -6px 12px -6px rgba(0, 0, 0, 0.4);
 
   isolation: isolate;
+}
+
+@utility metallic-text {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(247, 247, 247, 1) 86%,
+    rgba(235, 235, 235, 1) 100%
+  );
+  background-size: 100% 1.3em;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
