@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro"
+
 import { getCollection, render } from "astro:content"
+
+import Breadcrumb from "@/components/Breadcrumb.astro"
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog")
@@ -27,113 +30,106 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null
 ---
 
 <BaseLayout title={`${post.data.title} - Gerencia Blog`}>
-  <main
-    class="relative z-10 mb-[15vh] flex w-full flex-col items-center gap-6 px-4 pt-[25vh] sm:px-10 lg:px-32 xl:px-72"
-  >
-    <div class="font-b self-start text-sm text-white/50">
-      <a href="/" class="transition-colors hover:text-white">Inicio</a>
-      <span class="mx-1">/</span>
-      <a href="/blog" class="transition-colors hover:text-white">Blog</a>
-      <span class="mx-1">/</span>
-      <span class="text-white/70">{post.data.title}</span>
-    </div>
+  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.data.title }]} />
 
-    <article class="flex w-full flex-col items-center gap-6">
-      <section class="flex w-full flex-col items-center gap-2">
-        <h1
-          class="font-h metallic-text w-full text-4xl leading-tight font-bold tracking-wide text-white sm:text-center sm:text-5xl"
-        >
-          {post.data.title}
-        </h1>
-
-        <div class="font-b mb-2 w-full text-start text-base text-white/70 sm:text-center">
-          <time datetime={post.data.pubDate.toISOString()}>
-            {
-              post.data.pubDate.toLocaleDateString("es", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })
-            }
-          </time>
-          <span> • </span>
-          <span>{post.data.author}</span>
-        </div>
-
-        <p class="font-b mb-2 text-start text-xl leading-relaxed text-white/70 sm:text-center">
-          {post.data.description}
-        </p>
-
-        {
-          post.data.tags && (
-            <div class="my-4 flex w-full gap-2 sm:justify-center">
-              {post.data.tags.map((tag) => (
-                <span class="glass-card rounded-full px-6 py-2 font-medium text-white">#{tag}</span>
-              ))}
-            </div>
-          )
-        }
-      </section>
-
-      <div class="glass w-full rounded-3xl p-6 backdrop-blur-md">
-        <img src={post.data.banner ?? "/banners/default.webp"} alt="" class="h-106 w-full rounded-2xl object-cover" />
-      </div>
-
-      <div
-        class="prose prose-invert font-b prose-img:w-full prose-img:rounded-3xl prose-img:p-6 prose-img:glass prose-img:backdrop-blur-md prose-pre:glass prose-pre:rounded-2xl prose-pre:backdrop-blur-md prose-pre:!bg-transparent prose-lg no-code-backticks mt-10 mb-32 max-w-none"
+  <article class="flex w-full flex-col items-center gap-6">
+    <section class="flex w-full flex-col items-center gap-2">
+      <h1
+        class="font-h metallic-text w-full text-4xl leading-tight font-bold tracking-wide text-white sm:text-center sm:text-5xl"
       >
-        <Content className="min-w-full" />
-      </div>
-    </article>
+        {post.data.title}
+      </h1>
 
-    <div class="mt-4 mb-6 w-full text-center">
-      <a href="/blog" class="font-b text-sm text-white/50 transition-colors hover:text-white"> ← Volver al blog </a>
+      <div class="font-b mb-2 w-full text-start text-base text-white/70 sm:text-center">
+        <time datetime={post.data.pubDate.toISOString()}>
+          {
+            post.data.pubDate.toLocaleDateString("es", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })
+          }
+        </time>
+        <span> • </span>
+        <span>{post.data.author}</span>
+      </div>
+
+      <p class="font-b mb-2 text-start text-xl leading-relaxed text-white/70 sm:text-center">
+        {post.data.description}
+      </p>
+
+      {
+        post.data.tags && (
+          <div class="my-4 flex w-full gap-2 sm:justify-center">
+            {post.data.tags.map((tag) => (
+              <span class="glass-card rounded-full px-6 py-2 font-medium text-white">#{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </section>
+
+    <div class="glass w-full rounded-3xl p-6 backdrop-blur-md">
+      <img src={post.data.banner ?? "/banners/default.webp"} alt="" class="h-106 w-full rounded-2xl object-cover" />
     </div>
 
-    {
-      (prevPost || nextPost) && (
-        <nav class="w-full">
-          {prevPost && nextPost ? (
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div class="w-full max-w-full overflow-x-auto">
+      <div
+        class="prose prose-invert font-b prose-img:w-full prose-img:rounded-3xl prose-img:p-6 prose-img:glass prose-img:backdrop-blur-md prose-pre:glass prose-pre:rounded-2xl prose-pre:backdrop-blur-md prose-pre:!bg-transparent prose-lg no-code-backticks mt-10 mb-32 max-w-screen"
+      >
+        <Content className="w-full" />
+        {/* O sin className, como tenías antes */}
+      </div>
+    </div>
+  </article>
+
+  <div class="mt-4 mb-6 w-full text-center">
+    <a href="/blog" class="font-b text-sm text-white/50 transition-colors hover:text-white"> ← Volver al blog </a>
+  </div>
+
+  {
+    (prevPost || nextPost) && (
+      <nav class="w-full">
+        {prevPost && nextPost ? (
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <a
+              href={`/blog/${prevPost.id}`}
+              class="glass-card group flex flex-col gap-1 rounded-2xl p-4 text-white transition-colors hover:bg-white/10"
+            >
+              <span class="font-b text-xs tracking-wide text-white/50 uppercase">← Anterior</span>
+              <span class="font-b line-clamp-2 text-sm group-hover:text-white/90">{prevPost.data.title}</span>
+            </a>
+            <a
+              href={`/blog/${nextPost.id}`}
+              class="glass-card group flex flex-col items-end gap-1 rounded-2xl p-4 text-right text-white transition-colors hover:bg-white/10"
+            >
+              <span class="font-b text-xs tracking-wide text-white/50 uppercase">Siguiente →</span>
+              <span class="font-b line-clamp-2 text-sm group-hover:text-white/90">{nextPost.data.title}</span>
+            </a>
+          </div>
+        ) : (
+          <div class="flex justify-center">
+            {prevPost && (
               <a
                 href={`/blog/${prevPost.id}`}
-                class="glass-card group flex flex-col gap-1 rounded-2xl p-4 text-white transition-colors hover:bg-white/10"
+                class="glass-card group flex w-full flex-col gap-1 rounded-2xl p-4 text-white backdrop-blur-md sm:max-w-md"
               >
                 <span class="font-b text-xs tracking-wide text-white/50 uppercase">← Anterior</span>
                 <span class="font-b line-clamp-2 text-sm group-hover:text-white/90">{prevPost.data.title}</span>
               </a>
+            )}
+            {nextPost && (
               <a
                 href={`/blog/${nextPost.id}`}
-                class="glass-card group flex flex-col items-end gap-1 rounded-2xl p-4 text-right text-white transition-colors hover:bg-white/10"
+                class="glass-card group flex w-full flex-col items-end gap-1 rounded-2xl p-4 text-right text-white backdrop-blur-md sm:max-w-md"
               >
                 <span class="font-b text-xs tracking-wide text-white/50 uppercase">Siguiente →</span>
                 <span class="font-b line-clamp-2 text-sm group-hover:text-white/90">{nextPost.data.title}</span>
               </a>
-            </div>
-          ) : (
-            <div class="flex justify-center">
-              {prevPost && (
-                <a
-                  href={`/blog/${prevPost.id}`}
-                  class="glass-card group flex w-full max-w-xs flex-col gap-1 rounded-2xl p-4 text-white backdrop-blur-md"
-                >
-                  <span class="font-b text-xs tracking-wide text-white/50 uppercase">← Anterior</span>
-                  <span class="font-b line-clamp-2 text-sm group-hover:text-white/90">{prevPost.data.title}</span>
-                </a>
-              )}
-              {nextPost && (
-                <a
-                  href={`/blog/${nextPost.id}`}
-                  class="glass-card group flex w-full max-w-xs flex-col items-end gap-1 rounded-2xl p-4 text-right text-white backdrop-blur-md"
-                >
-                  <span class="font-b text-xs tracking-wide text-white/50 uppercase">Siguiente →</span>
-                  <span class="font-b line-clamp-2 text-sm group-hover:text-white/90">{nextPost.data.title}</span>
-                </a>
-              )}
-            </div>
-          )}
-        </nav>
-      )
-    }
-  </main>
+            )}
+          </div>
+        )}
+      </nav>
+    )
+  }
 </BaseLayout>

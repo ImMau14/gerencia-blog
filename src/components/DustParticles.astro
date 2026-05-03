@@ -1,26 +1,30 @@
 ---
-const { opacity = 0.28, speed = 1, count = 36, class: className = "" } = Astro.props
+export interface Props {
+  opacity?: number
+  speed?: number
+  count?: number
+  class?: string
+  active?: boolean
+}
+
+const { opacity = 0.28, speed = 1, count = 36, class: className = "", active = true } = Astro.props
 
 const particles = Array.from({ length: count }, () => {
   const size = (Math.random() * 1.6 + 0.6).toFixed(2)
   const left = (Math.random() * 100).toFixed(2)
   const delay = -(Math.random() * 14).toFixed(2)
-
   const baseDuration = Math.random() * 7 + 9
   const duration = (baseDuration / speed).toFixed(2)
-
   const drift = ((Math.random() * 2 - 1) * 18).toFixed(2)
   const alpha = (Math.random() * 0.5 + 0.35).toFixed(2)
-  const blur = Math.random() > 0.8 ? "0.6px" : "0px"
-
-  return { size, left, delay, duration, drift, alpha, blur }
+  return { size, left, delay, duration, drift, alpha }
 })
 ---
 
 <div
   aria-hidden="true"
   class={`dust-particles pointer-events-none fixed inset-0 overflow-hidden ${className}`}
-  style={`--dust-opacity: ${opacity};`}
+  style={`--dust-opacity: ${opacity}; display: ${active ? "block" : "none"}`}
 >
   {
     particles.map((p) => (
@@ -33,18 +37,32 @@ const particles = Array.from({ length: count }, () => {
         --duration: ${p.duration}s;
         --drift: ${p.drift}vw;
         --alpha: ${p.alpha};
-        --blur: ${p.blur};
       `}
       />
     ))
   }
 </div>
 
+<script>
+  const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
+
+  function update() {
+    const container = document.querySelector(".dust-particles")
+    if (!container) return
+    const particles = container.querySelectorAll<HTMLElement>(".particle")
+    const paused = document.hidden || mediaQuery.matches
+    particles.forEach((p) => (p.style.animationPlayState = paused ? "paused" : "running"))
+  }
+
+  document.addEventListener("visibilitychange", update)
+  mediaQuery.addEventListener("change", update)
+  update()
+</script>
+
 <style>
   .dust-particles {
     z-index: 0;
     opacity: var(--dust-opacity);
-    mix-blend-mode: screen;
     isolation: isolate;
   }
 
@@ -56,26 +74,11 @@ const particles = Array.from({ length: count }, () => {
     height: var(--size);
     border-radius: 9999px;
     background: rgba(255, 255, 255, var(--alpha));
-    filter: blur(var(--blur)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.22));
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
     transform: translate3d(0, 0, 0);
     animation: dust-fall var(--duration) linear infinite;
     animation-delay: var(--delay);
     will-change: transform, opacity;
-  }
-
-  .particle::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    background: radial-gradient(
-      circle at 35% 30%,
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(255, 255, 255, 0.5) 35%,
-      rgba(255, 255, 255, 0.1) 70%,
-      transparent 100%
-    );
-    opacity: 0.8;
   }
 
   @keyframes dust-fall {
@@ -83,15 +86,12 @@ const particles = Array.from({ length: count }, () => {
       transform: translate3d(0, -12vh, 0);
       opacity: 0;
     }
-
     12% {
       opacity: 1;
     }
-
     85% {
       opacity: 1;
     }
-
     100% {
       transform: translate3d(var(--drift), 112vh, 0);
       opacity: 0;

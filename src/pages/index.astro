@@ -1,87 +1,65 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro"
+
 import { getCollection } from "astro:content"
+
+import Breadcrumb from "@/components/Breadcrumb.astro"
+import PostCard from "@/components/PostCard.astro"
+import EmptyState from "@/components/EmptyState.astro"
 
 const posts = await getCollection("blog")
 const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 4)
 ---
 
-<BaseLayout title="Inicio - Gerencia Blog">
-  <main
-    class="relative z-10 flex w-full flex-col items-center gap-6 px-4 pt-[30vh] sm:px-10 sm:pt-[25vh] md:px-32 xl:px-72"
+<BaseLayout title="Inicio - Gerencia Blog" mainClass="pt-[30vh] sm:pt-[25vh]" bottomMargin={false}>
+  <Breadcrumb items={[{ label: "Inicio" }]} />
+
+  <h1
+    class="font-h metallic-text text-start text-4xl leading-tight font-bold tracking-wide text-white sm:text-center sm:text-5xl"
   >
-    <div class="font-b self-start text-sm text-white/50">
-      <span class="text-white/70">Inicio</span>
-    </div>
+    Gerencia Informática Integral: Desarrollo, Mantenimiento y Gestión de Sistemas
+  </h1>
 
-    <h1
-      class="font-h metallic-text text-start text-4xl leading-tight font-bold tracking-wide text-white sm:text-center sm:text-5xl"
-    >
-      Gerencia Informática Integral: Desarrollo, Mantenimiento y Gestión de Sistemas
-    </h1>
+  <p class="font-b text-start text-xl leading-relaxed text-white/70 sm:text-center">
+    Artículos informativos sobre gerencia informática, desarrollo de sistemas y gestión de bases de datos.
+  </p>
 
-    <p class="font-b text-start text-xl leading-relaxed text-white/70 sm:text-center">
-      Artículos informativos sobre gerencia informática, desarrollo de sistemas y gestión de bases de datos.
-    </p>
+  <div class="flex w-full flex-col-reverse items-center justify-center gap-4 sm:flex-row">
+    <a href="/about" class="w-full sm:w-auto">
+      <button
+        class="glass-button font-b flex w-full cursor-pointer items-center justify-center rounded-full px-10 py-3 font-semibold text-white backdrop-blur-lg sm:w-auto"
+      >
+        Más información
+      </button>
+    </a>
 
-    <div class="flex w-full flex-col-reverse items-center justify-center gap-4 sm:flex-row">
-      <a href="/about" class="w-full sm:w-auto">
-        <button
-          class="glass-button font-b flex w-full cursor-pointer items-center justify-center rounded-full px-10 py-3 font-semibold text-white backdrop-blur-lg sm:w-auto"
-        >
-          Más información
-        </button>
-      </a>
+    <a href="/blog" class="w-full sm:w-auto">
+      <button
+        class="glass-button font-b flex w-full cursor-pointer items-center justify-center rounded-full px-10 py-3 font-semibold text-white backdrop-blur-lg sm:w-auto"
+      >
+        Ver artículos
+      </button>
+    </a>
+  </div>
 
-      <a href="/blog" class="w-full sm:w-auto">
-        <button
-          class="glass-button font-b flex w-full cursor-pointer items-center justify-center rounded-full px-10 py-3 font-semibold text-white backdrop-blur-lg sm:w-auto"
-        >
-          Ver artículos
-        </button>
-      </a>
-    </div>
+  {
+    latestPosts.length > 0 ? (
+      <section class="mt-20 mb-[15vh] flex w-full flex-col gap-4">
+        <div class="flex items-baseline justify-between">
+          <h2 class="font-b text-base font-semibold text-white/70">Últimos Artículos</h2>
+          <a href="/blog" class="font-b text-sm text-white/50 transition-colors hover:text-white">
+            Ver todos →
+          </a>
+        </div>
 
-    {
-      latestPosts.length > 0 ? (
-        <section class="mt-20 mb-[15vh] flex w-full flex-col gap-4">
-          <div class="flex items-baseline justify-between">
-            <h2 class="font-b text-base font-semibold text-white/70">Últimos Artículos</h2>
-            <a href="/blog" class="font-b text-sm text-white/50 transition-colors hover:text-white">
-              Ver todos →
-            </a>
-          </div>
-
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
-            {latestPosts.map((post) => (
-              <a
-                href={`/blog/${post.id}`}
-                class="glass-card font-b flex h-full w-full flex-col gap-2 rounded-2xl p-6 backdrop-blur-lg"
-              >
-                <img
-                  src={post.data.banner ?? "/banners/default.webp"}
-                  alt=""
-                  class="mb-2 h-48 w-full rounded-xl object-cover"
-                />
-                <h3 class="line-clamp-2 text-xl font-semibold text-white">{post.data.title}</h3>
-                <p class="mb-4 line-clamp-3 text-sm text-white/60">{post.data.description}</p>
-                <div class="mt-auto flex items-center justify-between text-xs text-white/40">
-                  <span>{post.data.author}</span>
-                  <time datetime={post.data.pubDate.toISOString()}>
-                    {post.data.pubDate.toLocaleDateString("es", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </time>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      ) : (
-        <p class="font-b mt-20 text-white/50">Próximamente nuevos artículos.</p>
-      )
-    }
-  </main>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          {latestPosts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      </section>
+    ) : (
+      <EmptyState />
+    )
+  }
 </BaseLayout>

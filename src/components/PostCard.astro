@@ -1,0 +1,40 @@
+---
+export interface Props {
+  post: {
+    id: string
+    data: {
+      title: string
+      description: string
+      pubDate: Date
+      author: string
+      banner?: string
+      tags?: string[]
+    }
+  }
+  className?: string
+}
+
+const { className, post } = Astro.props
+const { id, data } = post
+---
+
+<a
+  href={`/blog/${id}`}
+  class={`glass-card font-b flex h-full w-full flex-col gap-2 rounded-2xl p-6 backdrop-blur-lg ${className}`}
+>
+  <img src={data.banner ?? "/banners/default.webp"} alt="" class="mb-2 h-48 w-full rounded-xl object-cover" />
+  <h3 class="line-clamp-2 text-xl font-semibold text-white">{data.title}</h3>
+  <p class="mb-4 line-clamp-3 text-sm text-white/60">{data.description}</p>
+  <div class="mt-auto flex items-center justify-between text-xs text-white/40">
+    <span>{data.author}</span>
+    <time datetime={data.pubDate.toISOString()}>
+      {
+        data.pubDate.toLocaleDateString("es", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      }
+    </time>
+  </div>
+</a>
