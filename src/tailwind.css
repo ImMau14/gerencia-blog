@@ -155,3 +155,12 @@
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
+
+@utility no-code-backticks {
+  code {
+    &::before,
+    &::after {
+      content: none;
+    }
+  }
+}
