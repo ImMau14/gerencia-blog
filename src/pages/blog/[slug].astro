@@ -30,17 +30,22 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null
 ---
 
 <BaseLayout title={`${post.data.title} - Gerencia Blog`}>
-  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.data.title }]} />
+  <Breadcrumb
+    items={[{ label: "Inicio", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.data.title }]}
+    className="animate-fade-in-down"
+  />
 
   <article class="flex w-full flex-col items-center gap-6">
     <section class="flex w-full flex-col items-center gap-2">
       <h1
-        class="font-h metallic-text w-full text-4xl leading-tight font-bold tracking-wide text-white sm:text-center sm:text-5xl"
+        class="font-h animate-fade-in-down animate-delay-100 metallic-text w-full text-4xl leading-tight font-bold tracking-wide text-white sm:text-center sm:text-5xl"
       >
         {post.data.title}
       </h1>
 
-      <div class="font-b mb-2 w-full text-start text-base text-white/70 sm:text-center">
+      <div
+        class="font-b animate-fade-in-down animate-delay-200 mb-2 w-full text-start text-base text-white/70 sm:text-center"
+      >
         <time datetime={post.data.pubDate.toISOString()}>
           {
             post.data.pubDate.toLocaleDateString("es", {
@@ -54,13 +59,15 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null
         <span>{post.data.author}</span>
       </div>
 
-      <p class="font-b mb-2 text-start text-xl leading-relaxed text-white/70 sm:text-center">
+      <p
+        class="font-b animate-fade-in-down animate-delay-300 mb-2 text-start text-xl leading-relaxed text-white/70 sm:text-center"
+      >
         {post.data.description}
       </p>
 
       {
         post.data.tags && (
-          <div class="my-4 flex w-full gap-2 sm:justify-center">
+          <div class="animate-fade-in-down animate-delay-400 my-4 flex w-full flex-wrap gap-2 sm:justify-center">
             {post.data.tags.map((tag) => (
               <span class="glass-card rounded-full px-6 py-2 font-medium text-white">#{tag}</span>
             ))}
@@ -69,27 +76,26 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null
       }
     </section>
 
-    <div class="glass w-full rounded-3xl p-6 backdrop-blur-md">
+    <div class="glass animate-fade-in-down animate-delay-500 w-full rounded-3xl p-6 backdrop-blur-md">
       <img src={post.data.banner ?? "/banners/default.webp"} alt="" class="h-106 w-full rounded-2xl object-cover" />
     </div>
 
-    <div class="w-full max-w-full overflow-x-auto">
+    <div class="animate-fade-in-down animate-delay-600 w-full max-w-full overflow-x-auto">
       <div
         class="prose prose-invert font-b prose-img:w-full prose-img:rounded-3xl prose-img:p-6 prose-img:glass prose-img:backdrop-blur-md prose-pre:glass prose-pre:rounded-2xl prose-pre:backdrop-blur-md prose-pre:!bg-transparent prose-lg no-code-backticks mt-10 mb-32 max-w-screen"
       >
         <Content className="w-full" />
-        {/* O sin className, como tenías antes */}
       </div>
     </div>
   </article>
 
-  <div class="mt-4 mb-6 w-full text-center">
+  <div class="animate-fade-in-down animate-delay-700 mt-4 mb-6 w-full text-center">
     <a href="/blog" class="font-b text-sm text-white/50 transition-colors hover:text-white"> ← Volver al blog </a>
   </div>
 
   {
     (prevPost || nextPost) && (
-      <nav class="w-full">
+      <nav class="animate-fade-in-down animate-delay-800 w-full">
         {prevPost && nextPost ? (
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <a

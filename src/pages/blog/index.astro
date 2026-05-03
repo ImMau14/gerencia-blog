@@ -10,20 +10,22 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
 ---
 
 <BaseLayout title="Blog - Gerencia Blog">
-  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Blog" }]} />
+  <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Blog" }]} className="animate-fade-in-down" />
 
   <h1
-    class="font-h metallic-text self-start text-start text-5xl leading-tight font-bold tracking-wide text-white sm:self-center"
+    class="font-h metallic-text animate-fade-in-down animate-delay-100 self-start text-start text-5xl leading-tight font-bold tracking-wide text-white sm:self-center"
   >
     Artículos
   </h1>
 
-  <p class="font-b text-start text-xl leading-relaxed text-white/70 sm:px-0 sm:text-center">
+  <p
+    class="font-b animate-fade-in-down animate-delay-200 text-start text-xl leading-relaxed text-white/70 sm:px-0 sm:text-center"
+  >
     Explora nuestra biblioteca de artículos dedicados a la gestión estratégica de tecnologías de la información,
     gobernanza digital y dirección de proyectos tecnológicos.
   </p>
 
-  <p class="font-b text-sm text-white/50">
+  <p class="font-b animate-fade-in-down animate-delay-300 text-sm text-white/50">
     {posts.length} artículo{posts.length !== 1 && "s"} publicado{posts.length !== 1 && "s"}
   </p>
 
@@ -31,11 +33,11 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
     posts.length === 0 ? (
       <EmptyState />
     ) : (
-      <div class="mt-16 grid w-full auto-rows-fr grid-cols-1 gap-8">
+      <div class="animate-fade-in-down animate-delay-300 mt-16 grid w-full auto-rows-fr grid-cols-1 gap-8">
         {posts.map((p) => (
           <a
             href={`/blog/${p.id}`}
-            class="font-b glass-card group flex h-auto w-full flex-col gap-6 overflow-hidden rounded-3xl p-6 backdrop-blur-md sm:flex-row sm:items-stretch"
+            class="font-b glass-card group timeline-view animate-fade-in animate-range-entry flex h-auto w-full flex-col gap-6 overflow-hidden rounded-3xl p-6 backdrop-blur-md sm:flex-row sm:items-stretch"
           >
             <img
               src={p.data.banner ?? "/banners/default.webp"}

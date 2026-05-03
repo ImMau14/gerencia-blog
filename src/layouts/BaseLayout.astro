@@ -13,11 +13,30 @@ export interface Props {
   bottomMargin?: boolean
 }
 
-const { title, mainClass = "pt-[25vh]", bottomMargin = true } = Astro.props
+const { title, mainClass, bottomMargin = true } = Astro.props
 const itsProduction: boolean = import.meta.env.PROD
+
+const onlyFadeOut = {
+  forwards: {
+    old: {
+      name: "fade-out",
+      duration: "0.2s",
+      easing: "ease-in",
+      fillMode: "forwards",
+    },
+    new: {
+      name: "none",
+      duration: "0s",
+    },
+  },
+  backwards: {
+    old: { name: "fade-out", duration: "0.2s" },
+    new: { name: "none", duration: "0s" },
+  },
+}
 ---
 
-<html lang="es" class="h-full w-full bg-mist-950" transition:animate="none">
+<html lang="es" class="h-full w-full bg-mist-950">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -34,62 +53,41 @@ const itsProduction: boolean = import.meta.env.PROD
     <div class="relative w-full">
       <div class="spotlight-top"></div>
       <DustParticles transition:persist speed={0.3} opacity={0.7} count={20} active={itsProduction} />
+
       <main
-        class={`relative z-10 flex w-full flex-col items-center gap-6 px-4 sm:px-10 md:px-32 xl:px-72 ${mainClass} ${bottomMargin ? "mb-[15vh]" : ""}`}
+        transition:animate={onlyFadeOut}
+        class:list={[
+          "relative z-10 flex w-full flex-col items-center gap-6",
+          "px-4 sm:px-10 md:px-32 xl:px-72",
+          "pt-[20vh] sm:pt-[25vh]",
+          mainClass,
+          { "mb-[15vh]": bottomMargin },
+        ]}
       >
         <slot />
       </main>
     </div>
 
-    <script>
-      import { navigate } from "astro:transitions/client"
-
-      function animateEntrance() {
-        const main = document.querySelector("main")
-        if (!main) return
-        main.classList.add("slide-in")
-        main.addEventListener(
-          "animationend",
-          () => {
-            main.classList.remove("slide-in")
-          },
-          { once: true },
-        )
-      }
-
-      async function animateExitAndNavigate(href: string) {
-        const main = document.querySelector("main")
-        if (!main) return
-        await new Promise<void>((resolve) => {
-          main.classList.add("slide-out")
-          main.addEventListener(
-            "animationend",
-            () => {
-              main.classList.remove("slide-out")
-              resolve()
-            },
-            { once: true },
-          )
-          setTimeout(resolve, 400)
-        })
-        navigate(href)
-      }
-
-      document.addEventListener("click", (e) => {
-        const target = e.target as HTMLElement | null
-        if (!target) return
-        const link = target.closest("a") as HTMLAnchorElement | null
-        if (!link) return
-        const href = link.getAttribute("href")
-        if (!href || href.startsWith("http") || href.startsWith("//") || href.startsWith("#")) return
-        e.preventDefault()
-        animateExitAndNavigate(href)
-      })
-
-      document.addEventListener("astro:after-swap", animateEntrance)
-      animateEntrance()
-    </script>
-
     <Footer transition:persist="footer" />
   </body>
 </html>
+
+<style is:global>
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
