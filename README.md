@@ -1,43 +1,105 @@
-# Astro Starter Kit: Minimal
+# Gerencia Blog · [![Vercel CI](https://img.shields.io/github/deployments/ImMau14/tscrapingbot-website/production?label=vercel&logo=vercel&logoColor=white)](https://gerencia-blog.vercel.app)
 
-```sh
-pnpm create astro@latest -- --template minimal
+Un blog informativo sobre temas de la materia Gerencia de la Informática de la UNEFA.
+
+---
+
+## Índice
+
+- [Tecnologías](#tecnologías)
+- [Construcción](#construcción)
+- [Despliegue](#despliegue)
+- [Comandos](#comandos)
+- [Calidad del código](#calidad-del-código)
+- [Licencia](#licencia)
+
+---
+
+## Tecnologías
+
+Este proyecto está principalmente construido con:
+
+- **[Astro](https://astro.build/)** - "Astro es una herramienta de creación de sitios web para la web moderna".
+- **[TailwindCSS](https://tailwindcss.com/)** - "Un framework CSS de utilidad-primero para crear rápidamente interfaces de usuario personalizadas.".
+
+> [!NOTE]
+> Para hacer cada post del blog, utiliza archivos **markdown** que gracias a Astro, son convertidos a código HTML.
+
+---
+
+## Construcción
+
+Para desarrollo local:
+
+```bash
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> [!NOTE]
+> El servidor de desarrollo se levantará en `http://localhost:4321` por defecto.
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## Despliegue
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+> [!IMPORTANT]
+> **Requisitos recomendados**
+> - **Node.js** 24 LTS o mayor.
+> - **pnpm** 10 o mayor.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+1. **Clona el repositorio y entra en él:**
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+   ```bash
+   git clone https://github.com/ImMau14/gerencia-blog.git
+   cd gerencia-blog
+   ```
 
-Any static assets, like images, can be placed in the `public/` directory.
+2. **Genera el HTML estático (compilado):**
 
-## 🧞 Commands
+   ```bash
+   pnpm build
+   ```
 
-All commands are run from the root of the project, from a terminal:
+3. **Empieza a servir los archivos:**
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `pnpm install`         | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+   ```bash
+   pnpm preview # Puedes usar --host para exponer localmente
+   ```
 
-## 👀 Want to learn more?
+> [!NOTE]
+> El servidor de producción se levantará en `http://localhost:4321` por defecto.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+
+## Comandos
+
+| Comando | Descripción |
+|---------|-------------|
+| `pnpm dev` | Inicia el servidor de desarrollo con recarga en vivo. |
+| `pnpm build` | Compila el sitio a HTML estático en la carpeta `dist/`. |
+| `pnpm preview` | Sirve localmente la versión compilada para previsualización. |
+| `pnpm astro` | Acceso directo a la CLI de Astro. |
+| `pnpm check` | Verifica tipos y errores en los componentes de Astro. |
+| `pnpm lint` | Analiza el código con Oxlint para encontrar problemas. |
+| `pnpm format` | Verifica el formato del código usando Prettier. |
+| `pnpm fix` | Corrige automáticamente errores de linting y formatea el código. |
+
+> [!NOTE]
+> Estos comandos son los comandos que están definidos en el archivo `package.json` del proyecto.
+
+---
+
+## Calidad del código
+
+Este proyecto incluye herramientas de calidad de código:
+
+- **[TypeScript](https://www.typescriptlang.org/)** – "Superset tipado de JavaScript que se compila a JavaScript plano".
+- **[Oxlint](https://oxc.rs/docs/guide/usage/linter.html)** – "Linter de alto rendimiento para JavaScript y TypeScript".
+- **[Prettier](https://prettier.io/)** – "Formateador de código opinado, compatible con múltiples lenguajes".
+
+---
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
