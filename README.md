@@ -45,6 +45,7 @@ pnpm dev
 
 > [!IMPORTANT]
 > **Requisitos recomendados**
+>
 > - **Node.js** 24 LTS o mayor.
 > - **pnpm** 10 o mayor.
 
@@ -74,16 +75,16 @@ pnpm dev
 
 ## Comandos
 
-| Comando | Descripción |
-|---------|-------------|
-| `pnpm dev` | Inicia el servidor de desarrollo con recarga en vivo. |
-| `pnpm build` | Compila el sitio a HTML estático en la carpeta `dist/`. |
-| `pnpm preview` | Sirve localmente la versión compilada para previsualización. |
-| `pnpm astro` | Acceso directo a la CLI de Astro. |
-| `pnpm check` | Verifica tipos y errores en los componentes de Astro. |
-| `pnpm lint` | Analiza el código con Oxlint para encontrar problemas. |
-| `pnpm format` | Verifica el formato del código usando Prettier. |
-| `pnpm fix` | Corrige automáticamente errores de linting y formatea el código. |
+| Comando        | Descripción                                                      |
+| -------------- | ---------------------------------------------------------------- |
+| `pnpm dev`     | Inicia el servidor de desarrollo con recarga en vivo.            |
+| `pnpm build`   | Compila el sitio a HTML estático en la carpeta `dist/`.          |
+| `pnpm preview` | Sirve localmente la versión compilada para previsualización.     |
+| `pnpm astro`   | Acceso directo a la CLI de Astro.                                |
+| `pnpm check`   | Verifica tipos y errores en los componentes de Astro.            |
+| `pnpm lint`    | Analiza el código con Oxlint para encontrar problemas.           |
+| `pnpm format`  | Verifica el formato del código usando Prettier.                  |
+| `pnpm fix`     | Corrige automáticamente errores de linting y formatea el código. |
 
 > [!NOTE]
 > Estos comandos son los comandos que están definidos en el archivo `package.json` del proyecto.

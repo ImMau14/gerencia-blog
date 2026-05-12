@@ -76,20 +76,24 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null
       }
     </section>
 
-    <div class="glass animate-fade-in-down animate-delay-500 w-full rounded-3xl p-6 backdrop-blur-md">
-      <img src={post.data.banner ?? "/banners/default.webp"} alt="" class="h-106 w-full rounded-2xl object-cover" />
+    <div class="glass animate-fade-in-down animate-delay-500 w-full rounded-3xl p-6">
+      <img
+        src={post.data.banner ?? "/banners/default.webp"}
+        alt=""
+        class="h-106 w-full rounded-2xl border-2 border-white/20 object-cover"
+      />
     </div>
 
     <div class="animate-fade-in-down animate-delay-600 w-full max-w-full overflow-x-auto">
       <div
-        class="prose prose-invert font-b prose-img:w-full prose-img:rounded-3xl prose-img:p-6 prose-img:glass prose-img:backdrop-blur-md prose-pre:glass prose-pre:rounded-2xl prose-pre:backdrop-blur-md prose-pre:!bg-transparent prose-lg no-code-backticks mt-10 mb-32 max-w-screen"
+        class="prose prose-invert font-b prose-img:w-full prose-img:rounded-3xl prose-img:p-6 prose-img:glass prose-pre:glass prose-pre:rounded-2xl prose-pre:!bg-transparent prose-lg no-code-backticks mt-10 mb-32 max-w-screen"
       >
         <Content className="w-full" />
       </div>
     </div>
   </article>
 
-  <div class="animate-fade-in-down animate-delay-700 mt-4 mb-6 w-full text-center">
+  <div class="animate-fade-in-down animate-delay-700 mb-6 w-full text-center">
     <a href="/blog" class="font-b text-sm text-white/50 transition-colors hover:text-white"> ← Volver al blog </a>
   </div>
 
@@ -118,7 +122,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null
             {prevPost && (
               <a
                 href={`/blog/${prevPost.id}`}
-                class="glass-card group flex w-full flex-col gap-1 rounded-2xl p-4 text-white backdrop-blur-md sm:max-w-md"
+                class="glass-card group flex w-full flex-col gap-1 rounded-2xl p-4 text-white sm:max-w-md"
               >
                 <span class="font-b text-xs tracking-wide text-white/50 uppercase">← Anterior</span>
                 <span class="font-b line-clamp-2 text-sm group-hover:text-white/90">{prevPost.data.title}</span>
@@ -127,7 +131,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null
             {nextPost && (
               <a
                 href={`/blog/${nextPost.id}`}
-                class="glass-card group flex w-full flex-col items-end gap-1 rounded-2xl p-4 text-right text-white backdrop-blur-md sm:max-w-md"
+                class="glass-card group flex w-full flex-col items-end gap-1 rounded-2xl p-4 text-right text-white sm:max-w-md"
               >
                 <span class="font-b text-xs tracking-wide text-white/50 uppercase">Siguiente →</span>
                 <span class="font-b line-clamp-2 text-sm group-hover:text-white/90">{nextPost.data.title}</span>
