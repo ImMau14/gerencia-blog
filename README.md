@@ -4,6 +4,10 @@ Un blog informativo sobre temas de la materia Gerencia de la Informática de la 
 
 ---
 
+![Imagen de la página principal](/public/home-photo.png)
+
+---
+
 ## Índice
 
 - [Tecnologías](#tecnologías)
