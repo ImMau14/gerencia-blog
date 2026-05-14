@@ -11,7 +11,15 @@ const posts = await getCollection("blog")
 const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 4)
 ---
 
-<BaseLayout title="Inicio - Gerencia Blog">
+<BaseLayout
+  title="Inicio"
+  seo={{
+    description:
+      "Artículos sobre gobernanza del software base, aplicaciones corporativas, licenciamiento, seguridad y mejora continua.",
+    image: "/home.webp",
+    url: "/",
+  }}
+>
   <Breadcrumb items={[{ label: "Inicio" }]} className="animate-fade-in-down" />
 
   <h1
@@ -30,7 +38,7 @@ const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
   <div
     class="sm:animate-fade-in-down sm:animate-delay-300 flex w-full flex-col-reverse items-center justify-center gap-4 sm:flex-row"
   >
-    <a href="/about" class="w-full sm:w-auto">
+    <a href="/about" class="w-full sm:w-auto" aria-label="Más información">
       <button
         class="glass-button font-b animate-fade-in-down animate-delay-500 flex w-full cursor-pointer items-center justify-center rounded-full px-10 py-3 font-semibold text-white sm:w-auto sm:animate-none"
       >
@@ -38,7 +46,7 @@ const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
       </button>
     </a>
 
-    <a href="/blog" class="w-full sm:w-auto">
+    <a href="/blog" class="w-full sm:w-auto" aria-label="Ver todos los artículos">
       <button
         class="glass-button font-b animate-fade-in-down animate-delay-400 flex w-full cursor-pointer items-center justify-center rounded-full px-10 py-3 font-semibold text-white sm:w-auto sm:animate-none"
       >

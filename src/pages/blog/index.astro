@@ -9,7 +9,15 @@ import EmptyState from "@/components/EmptyState.astro"
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 ---
 
-<BaseLayout title="Blog - Gerencia Blog">
+<BaseLayout
+  title="Blog"
+  seo={{
+    description:
+      "Explora nuestra biblioteca de artículos dedicados a la gestión estratégica de tecnologías de la información, gobernanza digital y dirección de proyectos tecnológicos.",
+    image: "/blog.webp",
+    url: "/blog",
+  }}
+>
   <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Blog" }]} className="animate-fade-in-down" />
 
   <h1

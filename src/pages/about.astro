@@ -3,7 +3,15 @@ import BaseLayout from "@/layouts/BaseLayout.astro"
 import Breadcrumb from "@/components/Breadcrumb.astro"
 ---
 
-<BaseLayout title="Acerca de - Gerencia Blog">
+<BaseLayout
+  title="Acerca de"
+  seo={{
+    description:
+      "Un espacio dedicado a la gerencia informática, donde el software base, las aplicaciones, la seguridad y la continuidad operativa se analizan como decisiones estratégicas para organizaciones reales.",
+    image: "/about.webp",
+    url: "/about",
+  }}
+>
   <Breadcrumb items={[{ label: "Inicio", href: "/" }, { label: "Acerca del Blog" }]} className="animate-fade-in-down" />
 
   <h1

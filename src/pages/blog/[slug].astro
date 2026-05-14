@@ -29,7 +29,14 @@ const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null
 ---
 
-<BaseLayout title={`${post.data.title} - Gerencia Blog`}>
+<BaseLayout
+  title={post.data.title}
+  seo={{
+    description: post.data.description,
+    image: post.data.banner ?? "/banners/default.webp",
+    url: `/blog/${post.id}`,
+  }}
+>
   <Breadcrumb
     items={[{ label: "Inicio", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.data.title }]}
     className="animate-fade-in-down"
